@@ -77,7 +77,6 @@ private:
 
   __forceinline bool ShouldCheckCameraOcclusion() const
   {
-    UE_LOG(LogTemp, Warning, TEXT("ShouldCheckCameraOcclusion: %d %p %p %p"), IsOcclusionEnabled, FadeMaterial, ActiveCamera, ActiveCapsuleComponent);
     return IsOcclusionEnabled && FadeMaterial && ActiveCamera && ActiveCapsuleComponent;
   }
   

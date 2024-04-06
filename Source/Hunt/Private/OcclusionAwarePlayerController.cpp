@@ -30,6 +30,7 @@ void AOcclusionAwarePlayerController::SyncOccludedActors()
     ForceShowOccludedActors();
     return;
   }
+  if (GetPawn() == nullptr) return;
 
   FVector Start = ActiveCamera->GetComponentLocation();
   FVector End = GetPawn()->GetActorLocation();
