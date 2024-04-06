@@ -2907,7 +2907,15 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Editor/AssetReferenceRestrictions/AssetReferenceRestrictions.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Editor/BlueprintHeaderView/BlueprintHeaderView.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Editor/DataValidation/DataValidation.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -2916,6 +2924,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Editor/FacialAnimation/FacialAnimation.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Editor/GameplayTagsEditor/GameplayTagsEditor.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -2960,6 +2972,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Enterprise/VariantManager/VariantManager.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/AbilitySystemGameFeatureActions/AbilitySystemGameFeatureActions.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -3015,11 +3031,19 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Experimental/GameFeatures/GameFeatures.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Experimental/GeometryCollectionPlugin/GeometryCollectionPlugin.uplugin",
 			"Type": "UFS"
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/LocalizableMessage/LocalizableMessage.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/ModularGameplay/ModularGameplay.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -3187,7 +3211,15 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Runtime/DataRegistry/DataRegistry.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Runtime/ExampleDeviceProfileSelector/ExampleDeviceProfileSelector.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Runtime/GameplayAbilities/GameplayAbilities.uplugin",
 			"Type": "UFS"
 		},
 		{
