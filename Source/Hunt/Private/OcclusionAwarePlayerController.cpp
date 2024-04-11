@@ -105,6 +105,11 @@ bool AOcclusionAwarePlayerController::HideOccludedActor(const AActor* Actor)
   {
     UStaticMeshComponent* StaticMesh = Cast<UStaticMeshComponent>(
       Actor->GetComponentByClass(UStaticMeshComponent::StaticClass()));
+    if (StaticMesh == nullptr)
+    {
+      if (DebugLineTraces) UE_LOG(LogTemp, Warning, TEXT("Actor %s does not have a static mesh component. Ignoring."), *Actor->GetName());
+      return false;
+    }
 
     FCameraOccludedActor OccludedActor;
     OccludedActor.Actor = Actor;
