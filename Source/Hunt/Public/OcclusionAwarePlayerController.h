@@ -35,6 +35,25 @@ class HUNT_API AOcclusionAwarePlayerController : public APlayerController
 
 public:
   AOcclusionAwarePlayerController();
+  UFUNCTION(BlueprintCallable)
+  void SimpleClientNavMove(const FVector& Destination);
+  UFUNCTION(BlueprintCallable, NetMulticast, Reliable)
+  void CancelActiveMovement();
+  UFUNCTION(BlueprintCallable)
+  /** Common request to nagivate player to the given world location. */
+  void RequestSetNewMoveDestination(const FVector DestLocation);
+
+  /** Call navigate player to the given world location (Client Version). */
+  UFUNCTION(Reliable, Client)
+  void ClientSetNewMoveDestination(const FVector DestLocation);
+
+  /** Call navigate player to the given world location (Server Version). */
+  UFUNCTION(Reliable, Server)
+  void ServerSetNewMoveDestination(const FVector DestLocation);
+
+  /** Navigate player to the given world location. */
+  UFUNCTION(BlueprintCallable)
+  void SetNewMoveDestination(const FVector DestLocation);
 
 protected:
   // Called when the game starts
@@ -74,6 +93,7 @@ private:
   void ShowOccludedActor(FCameraOccludedActor& OccludedActor);
   bool OnShowOccludedActor(const FCameraOccludedActor& OccludedActor) const;
   void ForceShowOccludedActors();
+  void OnPossess(APawn* InPawn) override;
 
   __forceinline bool ShouldCheckCameraOcclusion() const
   {

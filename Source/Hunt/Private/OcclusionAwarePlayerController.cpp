@@ -2,9 +2,13 @@
 // OcclusionAwarePlayerController.cpp
 
 #include "OcclusionAwarePlayerController.h"
+
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Containers/Set.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Navigation/PathFollowingComponent.h"
 
 AOcclusionAwarePlayerController::AOcclusionAwarePlayerController()
 {
@@ -169,3 +173,86 @@ bool AOcclusionAwarePlayerController::OnHideOccludedActor(const FCameraOccludedA
 
   return true;
 }
+
+// Fix client-side navigation after possessing a pawn. See https://forums.unrealengine.com/t/characters-dont-simple-move-to-location-after-possessing/833539/5
+void AOcclusionAwarePlayerController::SimpleClientNavMove(const FVector& Destination)
+{
+	UPathFollowingComponent* PathFollowingComp = FindComponentByClass<UPathFollowingComponent>();
+	if (PathFollowingComp == nullptr)
+	{
+		PathFollowingComp = NewObject<UPathFollowingComponent>(this);
+		PathFollowingComp->RegisterComponentWithWorld(GetWorld());
+		PathFollowingComp->Initialize();
+	}
+
+	if (!PathFollowingComp->IsPathFollowingAllowed())
+	{
+		// After a client respawn we need to reinitialize the path following component
+		// The default code path that sorts this out only fires on the server after a Possess
+		PathFollowingComp->Initialize();
+	}
+  PathFollowingComp->UpdateCachedComponents();
+	RequestSetNewMoveDestination(Destination);
+}
+
+void AOcclusionAwarePlayerController::OnPossess(APawn* InPawn)
+{
+  if (GetLocalRole() > ROLE_Authority)
+  {
+    UPathFollowingComponent* PathFollowingComp = FindComponentByClass<UPathFollowingComponent>();
+    if (PathFollowingComp)
+    {
+      PathFollowingComp->UpdateCachedComponents();
+    }
+  }
+  Super::OnPossess(InPawn);
+}
+
+// Requests a destination set for the client and server.
+void AOcclusionAwarePlayerController::RequestSetNewMoveDestination(const FVector DestLocation)
+{
+  ClientSetNewMoveDestination(DestLocation);
+  ServerSetNewMoveDestination(DestLocation);
+}
+
+// Requests a destination set for the client (Comes first, since client calls it by clicking).
+void AOcclusionAwarePlayerController::ClientSetNewMoveDestination_Implementation(const FVector DestLocation)
+{
+  SetNewMoveDestination(DestLocation);
+}
+
+// Requests a destination set for the server (Comes after, to replicate client movement server-side).
+void AOcclusionAwarePlayerController::ServerSetNewMoveDestination_Implementation(const FVector DestLocation)
+{
+  SetNewMoveDestination(DestLocation);
+}
+
+// Common destination setting and movement implementation.
+void AOcclusionAwarePlayerController::SetNewMoveDestination(const FVector DestLocation)
+{
+  if (APawn* const MyPawn = GetPawn())
+  {
+    float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
+
+    // We need to issue move command only if far enough in order for walk animation to play correctly.
+    if (Distance > 120.0f)
+      UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);
+  }
+}
+
+// Cancels the active movement of the player.
+void AOcclusionAwarePlayerController::CancelActiveMovement_Implementation()
+{
+  if (APawn* const MyPawn = GetPawn())
+  {
+    if (UPathFollowingComponent* PathFollowingComp = MyPawn->FindComponentByClass<UPathFollowingComponent>())
+    {
+      PathFollowingComp->AbortMove(*this, FPathFollowingResultFlags::ForcedScript | FPathFollowingResultFlags::NewRequest);
+    }
+    if (UCharacterMovementComponent* CharMoveComp = MyPawn->FindComponentByClass<UCharacterMovementComponent>())
+    {
+      CharMoveComp->StopMovementImmediately();
+    }
+  }
+}
+
