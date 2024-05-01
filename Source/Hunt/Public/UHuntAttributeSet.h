@@ -34,6 +34,6 @@ public:
 
 	// Movement speed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGameplayAttributeData MovementSpeed = 5.0f;
+	FGameplayAttributeData MovementSpeed = 600.0f;
 	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, MovementSpeed)
 };
