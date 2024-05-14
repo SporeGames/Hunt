@@ -34,11 +34,15 @@ void AAHuntCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void AAHuntCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	FindComponentByClass<UAbilitySystemComponent>()->RefreshAbilityActorInfo();
+	UAbilitySystemComponent* ASC = FindComponentByClass<UAbilitySystemComponent>();
+	if (ASC)
+	{
+		ASC->InitAbilityActorInfo(this, this);
+	}
 }
 
 void AAHuntCharacter::UnPossessed()
-{
+{	
 	Super::UnPossessed();
 	FindComponentByClass<UAbilitySystemComponent>()->RefreshAbilityActorInfo();
 }
