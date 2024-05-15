@@ -16,20 +16,33 @@ AAHuntCharacter::AAHuntCharacter()
 void AAHuntCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AAHuntCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
 void AAHuntCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 
+// Fix for abilities not being able to find the owner actor, crashing the game
+void AAHuntCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	UAbilitySystemComponent* ASC = FindComponentByClass<UAbilitySystemComponent>();
+	if (ASC)
+	{
+		ASC->InitAbilityActorInfo(this, this);
+	}
+}
+
+void AAHuntCharacter::UnPossessed()
+{	
+	Super::UnPossessed();
+	FindComponentByClass<UAbilitySystemComponent>()->RefreshAbilityActorInfo();
+}
