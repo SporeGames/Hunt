@@ -26,6 +26,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayAttributeData MaxHealth= 500.0f;
 	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, MaxHealth)
+	UFUNCTION(BlueprintCallable, Category = "HuntAttributeSet")
+	void SetHealthFloat(float newValue);
 
 	// Damage the owner can deal with one attack
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -36,4 +38,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayAttributeData MovementSpeed = 600.0f;
 	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, MovementSpeed)
+	
+	// Mana
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayAttributeData Mana = 100.0f;
+	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, Mana)
+	UFUNCTION(BlueprintCallable, Category = "HuntAttributeSet")
+	void SetManaFloat(float newValue);
 };
