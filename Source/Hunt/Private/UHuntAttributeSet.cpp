@@ -23,3 +23,14 @@ void UHuntAttributeSet::SetManaFloat(float NewVal)
 	}
 }
 
+void UHuntAttributeSet::SetDamageFloat(float NewVal)
+{
+	NewVal = FMath::Max(NewVal, 0.0f);
+	UAbilitySystemComponent* ASC = GetOwningAbilitySystemComponent();
+	if (ensure(ASC))
+	{
+		ASC->SetNumericAttributeBase(GetDamageAttribute(), NewVal);
+	}
+}
+
+

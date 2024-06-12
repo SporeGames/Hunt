@@ -33,6 +33,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayAttributeData Damage = 90.0f;
 	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, Damage)
+	UFUNCTION(BlueprintCallable, Category = "HuntAttributeSet")
+	void SetDamageFloat(float newValue);
 
 	// Movement speed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
