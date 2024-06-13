@@ -25,3 +25,16 @@ void UHuntGameInstance::EndLoadingScreen(UWorld* InLoadedWorld)
 {
 
 }
+
+FString UHuntGameInstance::GetAppVersion()
+{
+	FString AppVersion;
+	GConfig->GetString(
+		TEXT("/Script/EngineSettings.GeneralProjectSettings"),
+		TEXT("ProjectVersion"),
+		AppVersion,
+		GGameIni
+	);
+
+	return AppVersion;
+}

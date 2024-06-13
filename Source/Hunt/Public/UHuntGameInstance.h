@@ -11,4 +11,6 @@ public:
 	virtual void BeginLoadingScreen(const FString& MapName);
 	UFUNCTION()
 	virtual void EndLoadingScreen(UWorld* InLoadedWorld);
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetAppVersion"), Category = "Hunt Game Instance")
+	static FString GetAppVersion();
 };
