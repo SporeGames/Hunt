@@ -188,7 +188,6 @@ void AOcclusionAwarePlayerController::SimpleClientNavMove(const FVector& Destina
 	if (!PathFollowingComp->IsPathFollowingAllowed())
 	{
 		// After a client respawn we need to reinitialize the path following component
-		// The default code path that sorts this out only fires on the server after a Possess
 		PathFollowingComp->Initialize();
 	}
   PathFollowingComp->UpdateCachedComponents();
@@ -197,15 +196,12 @@ void AOcclusionAwarePlayerController::SimpleClientNavMove(const FVector& Destina
 
 void AOcclusionAwarePlayerController::OnPossess(APawn* InPawn)
 {
-  if (GetLocalRole() > ROLE_Authority)
-  {
-    UPathFollowingComponent* PathFollowingComp = FindComponentByClass<UPathFollowingComponent>();
-    if (PathFollowingComp)
-    {
-      PathFollowingComp->UpdateCachedComponents();
-    }
-  }
   Super::OnPossess(InPawn);
+  if (UPathFollowingComponent* PathFollowingComp = FindComponentByClass<UPathFollowingComponent>())
+  {
+    PathFollowingComp->UpdateCachedComponents();
+  }
+
 }
 
 // Requests a destination set for the client and server.
@@ -219,30 +215,26 @@ void AOcclusionAwarePlayerController::RequestSetNewMoveDestination(const FVector
 void AOcclusionAwarePlayerController::ClientSetNewMoveDestination_Implementation(const FVector DestLocation)
 {
   SetNewMoveDestination(DestLocation);
-  UE_LOG(LogActor, Warning, TEXT("Client set new move destination: %s"), *DestLocation.ToString());
+  UE_LOG(LogActor, Log, TEXT("Client set new move destination: %s"), *DestLocation.ToString());
 }
 
 // Requests a destination set for the server (Comes after, to replicate client movement server-side).
 void AOcclusionAwarePlayerController::ServerSetNewMoveDestination_Implementation(const FVector DestLocation)
 {
   SetNewMoveDestination(DestLocation);
-  UE_LOG(LogActor, Warning, TEXT("Server set new move destination: %s"), *DestLocation.ToString());
+  UE_LOG(LogActor, Log, TEXT("Server set new move destination: %s"), *DestLocation.ToString());
 }
 
-// Common destination setting and movement implementation.
 void AOcclusionAwarePlayerController::SetNewMoveDestination(const FVector DestLocation)
 {
-  UE_LOG(LogActor, Warning, TEXT("Moving towards: %s"), *DestLocation.ToString());
-  UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);
-  /*float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
+  UE_LOG(LogActor, Log, TEXT("Moving towards: %s"), *DestLocation.ToString());
   if (APawn* const MyPawn = GetPawn())
   {
-    UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);
-
-    // We need to issue move command only if far enough in order for walk animation to play correctly.
-    //if (Distance > 120.0f) 
+    if (float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation()); Distance > 120.0f)
+    {
       UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);
-  }*/
+    }
+  }
 }
 
 // Cancels the active movement of the player.
@@ -258,7 +250,7 @@ void AOcclusionAwarePlayerController::CancelActiveMovement_Implementation()
     {
       CharMoveComp->StopMovementImmediately();
     }
-    UE_LOG(LogActor, Warning, TEXT("Movement cancelled."));
+    UE_LOG(LogActor, Log, TEXT("Movement cancelled."));
   }
 }
 
