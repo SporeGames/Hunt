@@ -8,9 +8,9 @@ public class Hunt : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MoviePlayer", "AdvancedSessions"});
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MoviePlayer", "GameAnalytics", "AdvancedSessions"});
 
-		PrivateDependencyModuleNames.AddRange(new string[] {"AIModule"});
+		PrivateDependencyModuleNames.AddRange(new string[] {"AIModule", "GameAnalytics"});
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
