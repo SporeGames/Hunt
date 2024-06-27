@@ -3159,6 +3159,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Runtime/Analytics/AnalyticsBlueprintLibrary/AnalyticsBlueprintLibrary.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Runtime/AndroidFileServer/AndroidFileServer.uplugin",
 			"Type": "UFS"
 		},
@@ -3340,6 +3344,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/AdvancedSteamSessions/AdvancedSteamSessions.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/GameAnalytics/GameAnalytics.uplugin",
 			"Type": "UFS"
 		}
 	],
