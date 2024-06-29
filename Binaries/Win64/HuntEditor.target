@@ -6344,6 +6344,18 @@
 		{
 			"Path": "$(ProjectDir)/Plugins/GameAnalytics/Binaries/Win64/UnrealEditor.modules",
 			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/RefreshAllNodes/Binaries/Win64/UnrealEditor-RefreshAllNodes.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/RefreshAllNodes/Binaries/Win64/UnrealEditor-RefreshAllNodes.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/RefreshAllNodes/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
 		}
 	],
 	"RuntimeDependencies": [
@@ -26569,6 +26581,10 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/GameAnalytics/GameAnalytics.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/RefreshAllNodes/RefreshAllNodes.uplugin",
 			"Type": "UFS"
 		}
 	],
