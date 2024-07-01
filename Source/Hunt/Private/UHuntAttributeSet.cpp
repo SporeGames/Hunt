@@ -3,6 +3,16 @@
 
 #include "UHuntAttributeSet.h"
 
+void UHuntAttributeSet::SetMaxHealthFloat(float NewVal)
+{
+	NewVal = FMath::Max(NewVal, 0.0f);
+	UAbilitySystemComponent* ASC = GetOwningAbilitySystemComponent();
+	if (ensure(ASC))
+	{
+		ASC->SetNumericAttributeBase(GetMaxHealthAttribute(), NewVal);
+	}
+}
+
 void UHuntAttributeSet::SetHealthFloat(float NewVal)
 {
 	NewVal = FMath::Max(NewVal, 0.0f);

@@ -21,6 +21,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayAttributeData Health = 100.0f;
 	ATTRIBUTE_ACCESSORS(UHuntAttributeSet, Health)
+	UFUNCTION(BlueprintCallable, Category = "HuntAttributeSet")
+	void SetMaxHealthFloat(float newValue);
+
  
 	// Max health that the owner can have
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
