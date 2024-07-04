@@ -38,6 +38,7 @@ void AAHuntCharacter::PossessedBy(AController* NewController)
 	if (ASC)
 	{
 		ASC->InitAbilityActorInfo(this, this);
+		ASC->SetReplicationMode(EGameplayEffectReplicationMode::Full);
 	}
 }
 
