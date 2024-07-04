@@ -20,7 +20,7 @@ void UHuntGameInstance::BeginLoadingScreen(const FString& InMapName)
 		GetMoviePlayer()->SetupLoadingScreen(LoadingScreen);
 	}
 }
-
+ 
 void UHuntGameInstance::EndLoadingScreen(UWorld* InLoadedWorld)
 {
 
