@@ -21,7 +21,6 @@ void AOcclusionAwarePlayerController::BeginPlay()
 {
   Super::BeginPlay();
   
-  // Make sure to set the values of the components in the blueprint!
 }
 
 void AOcclusionAwarePlayerController::SyncOccludedActors()
