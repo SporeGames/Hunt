@@ -42,14 +42,14 @@ void FKaosGASUtilitiesEditorModule::StartupModule()
 
 	{
 		UToolMenu* Menu = UToolMenus::Get()->ExtendMenu("LevelEditor.MainMenu.Tools");
-		FToolMenuSection& Section = Menu->AddSection("KaosCore", LOCTEXT("KaosGASUtilities", "KaosGASUtilities"));
+		/*FToolMenuSection& Section = Menu->AddSection("KaosCore", LOCTEXT("KaosGASUtilities", "KaosGASUtilities"));
 		Section.AddEntry(FToolMenuEntry::InitMenuEntry(
 			"ReloadAttributeTables",
 			TAttribute<FText>::Create(&FKaosGASUtilitiesEditorModule::Menu_ReloadAttributesText),
 			LOCTEXT("ReloadAttributeTables", "Reload Attribute Tables"),
 			FSlateIcon(FAppStyle::GetAppStyleSetName(), "DeveloperTools.MenuIcon"),
 			FUIAction(FExecuteAction::CreateStatic(&FKaosGASUtilitiesEditorModule::Menu_ReloadAttributes))
-		));
+		));*/
 	}
 }
 
