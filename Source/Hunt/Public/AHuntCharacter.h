@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "UHuntAttributeSet.h"
 #include "GameFramework/Character.h"
 #include "AHuntCharacter.generated.h"
 
 UCLASS()
-class HUNT_API AAHuntCharacter : public ACharacter
+class HUNT_API AAHuntCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -31,6 +32,7 @@ public:
 
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void UnPossessed() override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
 
 };

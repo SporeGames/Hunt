@@ -47,3 +47,8 @@ void AAHuntCharacter::UnPossessed()
 	Super::UnPossessed();
 	FindComponentByClass<UAbilitySystemComponent>()->RefreshAbilityActorInfo();
 }
+
+UAbilitySystemComponent* AAHuntCharacter::GetAbilitySystemComponent() const
+{
+	return FindComponentByClass<UAbilitySystemComponent>();
+}
